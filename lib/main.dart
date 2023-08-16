@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final nameProvider = StateProvider<String>((ref) => 'Shinji');
+import 'package:my_quiz/app.dart';
 
 void main() {
   runApp(
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const Placeholder(),
+      home: const MyQuiz(),
     );
   }
 }
