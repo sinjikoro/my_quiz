@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:my_quiz/screen/quiz_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final nameProvider = StateProvider<String>((ref) => 'Shinji');
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,9 +19,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MyQuiz',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: const QuizScreen(),
+      home: const Placeholder(),
     );
   }
 }
