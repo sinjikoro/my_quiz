@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_quiz/features/question/presentation/quiz_screen.dart';
 
-class QuizListScreen extends StatelessWidget {
+enum QuizLevel { easy, normal, hard }
+class QuizListScreen extends StatefulWidget {
   const QuizListScreen({super.key});
 
+  @override
+  State<QuizListScreen> createState() => _QuizListScreenState();
+}
+
+class _QuizListScreenState extends State<QuizListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +19,22 @@ class QuizListScreen extends StatelessWidget {
       ),
       body: Column(children: [
         SvgPicture.asset('assets/img/un.svg'),
+        // SegmentedButton<QuizLevel>(
+        //   segments: const <ButtonSegment<QuizLevel>>[
+        //     ButtonSegment<QuizLevel>(
+        //       label: Text('初級'),
+        //       value: QuizLevel.easy,
+        //     ),
+        //     ButtonSegment<QuizLevel>(
+        //       label: Text('中級'),
+        //       value: QuizLevel.normal,
+        //     ),
+        //     ButtonSegment<QuizLevel>(
+        //       label: Text('上級'),
+        //       value: QuizLevel.hard,
+        //     ),
+        //   ],
+        // ),
         ElevatedButton(
           onPressed: () {
             Navigator.of(context)
