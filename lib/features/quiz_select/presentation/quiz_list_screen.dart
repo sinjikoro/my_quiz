@@ -15,7 +15,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('国旗クイズ'),
+        title: const Text('国旗クイズ!'),
       ),
       body: Column(children: [
         SvgPicture.asset('assets/img/un.svg'),
