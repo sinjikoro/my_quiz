@@ -15,7 +15,7 @@ class QuizListScreen extends StatefulWidget {
 class _QuizListScreenState extends State<QuizListScreen> {
   @override
   Widget build(BuildContext context) {
-    final _quizes = _dummyQuizs;
+    final quizes = _dummyQuizs;
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +23,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
       ),
       body: Column(children: [
         const WelcomeImage(),
-        for (final quiz in _quizes) 
+        for (final quiz in quizes) 
           QuizSelectArea(quiz),
       ]),
     );
