@@ -9,13 +9,17 @@ class QuizSelectArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuizScreen(quiz)));
-    },
-    style: ElevatedButton.styleFrom(
-      fixedSize: const Size.fromWidth(200),
-    ),
-    child: Text(quiz.description),
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => QuizScreen(
+                  quiz: quiz,
+                )));
+      },
+      style: ElevatedButton.styleFrom(
+        fixedSize: const Size.fromWidth(200),
+      ),
+      child: Text(quiz.description),
     );
   }
 }

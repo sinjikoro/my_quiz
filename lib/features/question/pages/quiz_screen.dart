@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:my_quiz/core/models/answer.dart';
 import 'package:my_quiz/core/models/quiz.dart';
+import 'package:my_quiz/core/models/result.dart';
 import 'package:my_quiz/features/question/widgets/answer_area.dart';
 import 'package:my_quiz/features/question/widgets/question_area.dart';
-import 'package:my_quiz/features/result/presentation/result_screen.dart';
+import 'package:my_quiz/features/result/pages/result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen(this.quiz, {super.key});
+  const QuizScreen({super.key, required this.quiz});
 
   final Quiz quiz;
 
@@ -38,8 +40,23 @@ class _QuizScreenState extends State<QuizScreen> {
           Row(
             children: [
               ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const ResultScreen())),
+                onPressed: () {
+                  final result = Result(answers: [
+                    Answer(
+                      answer: question.answers[0],
+                      isCorrect: true,
+                      correctAnswer: question.correctAnswer,
+                    )
+                  ]);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => ResultScreen(
+                        quiz: widget.quiz,
+                        result: result,
+                      ),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size.fromWidth(140),
                 ),
@@ -52,4 +69,3 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 }
-

@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:my_quiz/core/models/quiz.dart';
+import 'package:my_quiz/core/models/result.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key});
+  const ResultScreen({
+    super.key,
+    required this.quiz,
+    required this.result,
+  });
+
+  final Quiz quiz;
+  final Result result;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('国旗クイズ ~初級~'),
+        title: Text('${quiz.title} ${quiz.description}'),
       ),
       body: Column(children: [
         const Text('Congratulation!'),
-        const Text('99点'),
-        const Text('''
-間違えた問題のこたえ
-  1. チュニジア
-  2. マケドニア
-  3. ベネズエラ
-'''),
+        const Text('正解数 1 / 1'),
+        for (final answer in result.answers)
+          Text('${answer.answer} ${answer.isCorrect ? '○' : '×'}'),
         Row(
           children: [
             ElevatedButton(

@@ -9,5 +9,5 @@ class Question {
   final int id;
   final String question;
   final List<String> answers;
-  final int correctAnswer;
+  final String correctAnswer;
 }

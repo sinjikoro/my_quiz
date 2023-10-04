@@ -5,6 +5,7 @@ import 'package:my_quiz/features/quiz_select/widgets/quiz_select_area.dart';
 import 'package:my_quiz/features/quiz_select/widgets/welcome_image.dart';
 
 enum QuizLevel { easy, normal, hard }
+
 class QuizListScreen extends StatefulWidget {
   const QuizListScreen({super.key});
 
@@ -23,8 +24,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
       ),
       body: Column(children: [
         const WelcomeImage(),
-        for (final quiz in quizes) 
-          QuizSelectArea(quiz),
+        for (final quiz in quizes) QuizSelectArea(quiz),
       ]),
     );
   }
@@ -34,11 +34,11 @@ List<Quiz> _dummyQuizs = [
   Quiz(1, '初級', 'かんたんだよ', _dummyQuestion),
   Quiz(1, '中級', 'ふつうだよ', _dummyQuestion),
   Quiz(1, '上級', 'むずかしいよ', _dummyQuestion),
-  ];
+];
 
 List<Question> _dummyQuestion = [
-  Question(1, 'question', ['a', 'b', 'c'], 1),
-  Question(1, 'question', ['a', 'b', 'c'], 1),
-  Question(1, 'question', ['a', 'b', 'c'], 1),
-  Question(1, 'question', ['a', 'b', 'c'], 1),
-  ];
+  Question(1, 'question', ['a', 'b', 'c'], 'a'),
+  Question(1, 'question', ['a', 'b', 'c'], 'b'),
+  Question(1, 'question', ['a', 'b', 'c'], 'c'),
+  Question(1, 'question', ['a', 'b', 'c'], 'd'),
+];
