@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_quiz/core/models/quiz.dart';
-import 'package:my_quiz/features/question/presentation/widgets/answer_area.dart';
-import 'package:my_quiz/features/question/presentation/widgets/question_area.dart';
+import 'package:my_quiz/features/question/widgets/answer_area.dart';
+import 'package:my_quiz/features/question/widgets/question_area.dart';
 import 'package:my_quiz/features/result/presentation/result_screen.dart';
 
 class QuizScreen extends StatefulWidget {

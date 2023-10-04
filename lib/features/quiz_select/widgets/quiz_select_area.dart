@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_quiz/core/models/quiz.dart';
-import 'package:my_quiz/features/question/presentation/pages/quiz_screen.dart';
+import 'package:my_quiz/features/question/pages/quiz_screen.dart';
 
 class QuizSelectArea extends StatelessWidget {
   const QuizSelectArea(this.quiz, {super.key});
