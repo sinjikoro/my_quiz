@@ -7,6 +7,7 @@ import 'package:my_quiz/features/result/pages/result_screen.dart';
 
 GoRouter appRouter() {
   return GoRouter(
+    initialLocation: '/',
     routes: [
       GoRoute(
         path: '/',
