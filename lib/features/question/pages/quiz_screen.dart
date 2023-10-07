@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_quiz/core/models/answer.dart';
-import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/core/models/result.dart';
+import 'package:my_quiz/core/provider/selected_quiz_provider.dart';
 import 'package:my_quiz/features/question/widgets/answer_area.dart';
 import 'package:my_quiz/features/question/widgets/question_area.dart';
 import 'package:my_quiz/features/result/pages/result_screen.dart';
 
-class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key, required this.quiz});
+class QuizScreen extends ConsumerWidget {
+  const QuizScreen({super.key, required this.id});
 
-  final Quiz quiz;
-
-  @override
-  State<QuizScreen> createState() => _QuizScreenState();
-}
-
-class _QuizScreenState extends State<QuizScreen> {
-  final _currentId = 0;
+  final int id;
 
   @override
-  Widget build(BuildContext context) {
-    final question = widget.quiz.questions[_currentId];
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedQuiz = ref.watch(selectedQuizProvider);
+    final question = ref.read(selectedQuizProvider.notifier).getQuestion(id);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.quiz.title} ${widget.quiz.description}'),
+        title: Text('${selectedQuiz.title} ${selectedQuiz.description}'),
       ),
       body: Column(
         children: [
@@ -51,7 +46,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => ResultScreen(
-                        quiz: widget.quiz,
+                        quiz: selectedQuiz,
                         result: result,
                       ),
                     ),

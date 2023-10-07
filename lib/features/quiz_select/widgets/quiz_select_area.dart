@@ -12,8 +12,8 @@ class QuizSelectArea extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => QuizScreen(
-                  quiz: quiz,
+            builder: (_) => const QuizScreen(
+                  id: 1,
                 )));
       },
       style: ElevatedButton.styleFrom(

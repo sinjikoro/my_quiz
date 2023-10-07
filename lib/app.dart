@@ -6,6 +6,12 @@ class MyQuiz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const QuizListScreen();
+    return MaterialApp(
+      title: 'MyQuiz',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: const QuizListScreen(),
+    );
   }
 }

@@ -5,22 +5,7 @@ import 'package:my_quiz/app.dart';
 void main() {
   runApp(
     const ProviderScope(
-      child: MyApp(),
+      child: MyQuiz(),
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MyQuiz',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: const MyQuiz(),
-    );
-  }
 }
