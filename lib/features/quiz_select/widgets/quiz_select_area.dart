@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/models/quiz.dart';
-import 'package:my_quiz/features/question/pages/quiz_screen.dart';
+import 'package:my_quiz/core/provider/selected_quiz_provider.dart';
 
-class QuizSelectArea extends StatelessWidget {
+class QuizSelectArea extends ConsumerWidget {
   const QuizSelectArea(this.quiz, {super.key});
 
   final Quiz quiz;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => const QuizScreen(
-                  id: 1,
-                )));
+        final selectedQuiz = ref.read(selectedQuizProvider.notifier);
+        selectedQuiz.select(quiz);
+        context.push('/quiz/1');
       },
       style: ElevatedButton.styleFrom(
         fixedSize: const Size.fromWidth(200),

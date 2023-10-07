@@ -11,9 +11,9 @@ class MyQuiz extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      routerDelegate: appRouter().routerDelegate,
-      routeInformationParser: appRouter().routeInformationParser,
-      routeInformationProvider: appRouter().routeInformationProvider,
+      routerDelegate: appRouter.routerDelegate,
+      routeInformationParser: appRouter.routeInformationParser,
+      routeInformationProvider: appRouter.routeInformationProvider,
     );
   }
 }

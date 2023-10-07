@@ -11,7 +11,7 @@ class SelectedQuiz extends _$SelectedQuiz {
     return Quiz(-1, '', '', []);
   }
 
-  void selectQuiz(Quiz selectedQuiz) {
+  void select(Quiz selectedQuiz) {
     state = selectedQuiz;
   }
 
