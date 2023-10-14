@@ -16,7 +16,8 @@ GoRouter appRouter = GoRouter(
       path: '/quiz/:id',
       builder: (context, state) {
         final id = state.pathParameters['id'];
-        return QuizScreen(id: int.parse(id!));
+        final quiz = state.extra as Quiz;
+        return QuizScreen(id: int.parse(id!), quiz: quiz);
       },
     ),
     GoRoute(

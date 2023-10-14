@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_quiz/core/models/answer.dart';
+import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/core/models/result.dart';
-import 'package:my_quiz/core/provider/selected_quiz_provider.dart';
 import 'package:my_quiz/features/question/widgets/answer_area.dart';
 import 'package:my_quiz/features/question/widgets/question_area.dart';
 import 'package:my_quiz/features/result/pages/result_screen.dart';
 
 class QuizScreen extends ConsumerWidget {
-  const QuizScreen({super.key, required this.id});
+  const QuizScreen({super.key, required this.quiz, required this.id});
 
   final int id;
+  final Quiz quiz;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedQuiz = ref.watch(selectedQuizProvider);
-    final question = ref.read(selectedQuizProvider.notifier).getQuestion(id);
+    final question = quiz.questions.firstWhere((element) => element.id == id);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${selectedQuiz.title} ${selectedQuiz.description}'),
+        title: Text('${quiz.title} ${quiz.description}'),
       ),
       body: Column(
         children: [
@@ -46,7 +46,7 @@ class QuizScreen extends ConsumerWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => ResultScreen(
-                        quiz: selectedQuiz,
+                        quiz: quiz,
                         result: result,
                       ),
                     ),

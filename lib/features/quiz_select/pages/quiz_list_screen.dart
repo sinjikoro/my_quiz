@@ -31,9 +31,9 @@ class _QuizListScreenState extends State<QuizListScreen> {
 }
 
 List<Quiz> _dummyQuizs = [
-  Quiz(1, '初級', 'かんたんだよ', _dummyQuestion),
-  Quiz(1, '中級', 'ふつうだよ', _dummyQuestion),
-  Quiz(1, '上級', 'むずかしいよ', _dummyQuestion),
+  Quiz(id: 1, title: '初級', description: 'かんたんだよ', questions: _dummyQuestion),
+  Quiz(id: 2, title: '中級', description: 'ふつうだよ', questions: _dummyQuestion),
+  Quiz(id: 3, title: '上級', description: 'むずかしいよ', questions: _dummyQuestion),
 ];
 
 List<Question> _dummyQuestion = [
