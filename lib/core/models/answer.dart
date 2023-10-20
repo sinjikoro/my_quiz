@@ -1,11 +1,12 @@
-class Answer {
-  final String answer;
-  final String correctAnswer;
-  final bool isCorrect;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Answer({
-    required this.answer,
-    required this.isCorrect,
-    required this.correctAnswer,
-  });
+part 'answer.freezed.dart';
+
+@freezed
+class Answer with _$Answer {
+  const factory Answer({
+    required String answer,
+    required String correctAnswer,
+    required bool isCorrect,
+  }) = _Answer;
 }

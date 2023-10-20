@@ -1,13 +1,13 @@
-class Question {
-  Question(
-    this.id,
-    this.question,
-    this.answers,
-    this.correctAnswer,
-  );
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int id;
-  final String question;
-  final List<String> answers;
-  final String correctAnswer;
+part 'question.freezed.dart';
+
+@freezed
+class Question with _$Question {
+  const factory Question({
+    required int id,
+    required String question,
+    required List<String> answers,
+    required String correctAnswer,
+  }) = _Question;
 }
