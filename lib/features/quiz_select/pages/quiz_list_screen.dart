@@ -37,8 +37,24 @@ List<Quiz> _dummyQuizs = [
 ];
 
 List<Question> _dummyQuestion = [
-  Question(1, '一番面積の大きい国は？', ['中国', 'アメリカ', 'ロシア'], 'ロシア'),
-  Question(2, '一番GDPの多い国は？', ['アメリカ', '中国', '日本'], 'アメリカ'),
-  Question(3, '一番人口の多い国は？', ['インド', 'アメリカ', '中国'], '中国'),
-  Question(4, '一番南に位置する国は？', ['オーストラリア', '南極', '南アフリカ共和国'], '南アフリカ共和国'),
+  const Question(
+      id: 1,
+      question: '一番面積の大きい国は？',
+      answers: ['中国', 'アメリカ', 'ロシア'],
+      correctAnswer: 'ロシア'),
+  const Question(
+      id: 2,
+      question: '一番GDPの多い国は？',
+      answers: ['アメリカ', '中国', '日本'],
+      correctAnswer: 'アメリカ'),
+  const Question(
+      id: 3,
+      question: '一番人口の多い国は？',
+      answers: ['インド', 'アメリカ', '中国'],
+      correctAnswer: '中国'),
+  const Question(
+      id: 4,
+      question: '一番南に位置する国は？',
+      answers: ['オーストラリア', '南極', '南アフリカ共和国'],
+      correctAnswer: '南アフリカ共和国'),
 ];

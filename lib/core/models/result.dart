@@ -6,6 +6,6 @@ part 'result.freezed.dart';
 @freezed
 class Result with _$Result {
   const factory Result({
-    required List<Answer> ansewers,
+    required List<Answer> answers,
   }) = _Result;
 }
