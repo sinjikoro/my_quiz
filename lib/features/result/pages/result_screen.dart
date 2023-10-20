@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:my_quiz/core/models/quiz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_quiz/core/models/result.dart';
+import 'package:my_quiz/features/question/provider/selected_quiz_provider.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends ConsumerWidget {
   const ResultScreen({
     super.key,
-    required this.quiz,
     required this.result,
   });
 
-  final Quiz quiz;
   final Result result;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quiz = ref.watch(selectedQuizProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text('${quiz.title} ${quiz.description}'),

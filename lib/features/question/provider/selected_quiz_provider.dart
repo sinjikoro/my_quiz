@@ -3,10 +3,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'selected_quiz_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SelectedQuiz extends _$SelectedQuiz {
   @override
   Quiz build() {
-    return Quiz(id: -1, title: '', description: '', questions: []);
+    return const Quiz(id: -1, title: '', description: '', questions: []);
+  }
+
+  setQuiz(Quiz quiz) {
+    state = quiz;
   }
 }

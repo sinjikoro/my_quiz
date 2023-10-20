@@ -37,8 +37,8 @@ List<Quiz> _dummyQuizs = [
 ];
 
 List<Question> _dummyQuestion = [
-  Question(1, 'question', ['a', 'b', 'c'], 'a'),
-  Question(1, 'question', ['a', 'b', 'c'], 'b'),
-  Question(1, 'question', ['a', 'b', 'c'], 'c'),
-  Question(1, 'question', ['a', 'b', 'c'], 'd'),
+  Question(1, '一番面積の大きい国は？', ['中国', 'アメリカ', 'ロシア'], 'ロシア'),
+  Question(2, '一番GDPの多い国は？', ['アメリカ', '中国', '日本'], 'アメリカ'),
+  Question(3, '一番人口の多い国は？', ['インド', 'アメリカ', '中国'], '中国'),
+  Question(4, '一番南に位置する国は？', ['オーストラリア', '南極', '南アフリカ共和国'], '南アフリカ共和国'),
 ];

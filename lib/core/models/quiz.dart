@@ -1,15 +1,14 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:my_quiz/core/models/question.dart';
 
-class Quiz {
-  Quiz({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.questions,
-  });
+part 'quiz.freezed.dart';
 
-  final int id;
-  final String title;
-  final String description;
-  final List<Question> questions;
+@freezed
+class Quiz with _$Quiz {
+  const factory Quiz({
+    required int id,
+    required String title,
+    required String description,
+    required List<Question> questions,
+  }) = _Quiz;
 }

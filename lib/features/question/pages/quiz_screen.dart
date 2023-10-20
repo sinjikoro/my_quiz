@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_quiz/core/models/answer.dart';
-import 'package:my_quiz/core/models/quiz.dart';
-import 'package:my_quiz/core/models/result.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_quiz/features/question/provider/selected_quiz_provider.dart';
 import 'package:my_quiz/features/question/widgets/answer_area.dart';
+import 'package:my_quiz/features/question/widgets/answer_button.dart';
 import 'package:my_quiz/features/question/widgets/question_area.dart';
-import 'package:my_quiz/features/result/pages/result_screen.dart';
 
-class QuizScreen extends ConsumerWidget {
-  const QuizScreen({super.key, required this.quiz, required this.id});
+class QuizScreen extends ConsumerStatefulWidget {
+  const QuizScreen({super.key, required this.id});
 
   final int id;
-  final Quiz quiz;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  QuizScreenState createState() => QuizScreenState();
+}
+
+class QuizScreenState extends ConsumerState<QuizScreen> {
+  String selectAnswer = '';
+  late int id = widget.id;
+
+  @override
+  Widget build(BuildContext context) {
+    final quiz = ref.watch(selectedQuizProvider);
     final question = quiz.questions.firstWhere((element) => element.id == id);
+    final isLastQuestion = quiz.questions.last == question;
 
     return Scaffold(
       appBar: AppBar(
@@ -28,34 +36,29 @@ class QuizScreen extends ConsumerWidget {
             children: [
               for (final answer in question.answers)
                 Expanded(
-                  child: AnswerArea(answer),
+                  child: AnswerArea(
+                    answer: answer,
+                    selectAnswer: () {
+                      setState(() {
+                        selectAnswer = answer;
+                      });
+                    },
+                  ),
                 ),
             ],
           ),
           Row(
             children: [
-              ElevatedButton(
+              AnswerButton(
                 onPressed: () {
-                  final result = Result(answers: [
-                    Answer(
-                      answer: question.answers[0],
-                      isCorrect: true,
-                      correctAnswer: question.correctAnswer,
-                    )
-                  ]);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => ResultScreen(
-                        quiz: quiz,
-                        result: result,
-                      ),
-                    ),
-                  );
+                  if (isLastQuestion) {
+                    context.push('/result');
+                  } else {
+                    setState(() {
+                      id++;
+                    });
+                  }
                 },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size.fromWidth(140),
-                ),
-                child: const Text('次へ'),
               ),
             ],
           ),
