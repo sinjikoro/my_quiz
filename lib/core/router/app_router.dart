@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:my_quiz/core/models/result.dart';
 import 'package:my_quiz/features/question/pages/quiz_screen.dart';
 import 'package:my_quiz/features/quiz_select/pages/quiz_list_screen.dart';
 import 'package:my_quiz/features/result/pages/result_screen.dart';
@@ -20,9 +19,7 @@ GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/result',
-      builder: (context, state) => ResultScreen(
-        result: state.extra as Result,
-      ),
+      builder: (context, state) => const ResultScreen(),
     ),
   ],
 );

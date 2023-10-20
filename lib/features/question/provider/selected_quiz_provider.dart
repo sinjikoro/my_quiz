@@ -10,7 +10,8 @@ class SelectedQuiz extends _$SelectedQuiz {
     return const Quiz(id: -1, title: '', description: '', questions: []);
   }
 
-  setQuiz(Quiz quiz) {
-    state = quiz;
-  }
+  setQuiz(Quiz quiz) => state = quiz;
+
+  clear() =>
+      state = const Quiz(id: -1, title: '', description: '', questions: []);
 }

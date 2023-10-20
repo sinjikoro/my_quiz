@@ -14,20 +14,6 @@ class AnswerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      // onPressed: () {
-      //   final result = Result(answers: [
-      //     Answer(
-      //       answer: selectAnswer,
-      //       isCorrect: selectAnswer == correctAnswer,
-      //       correctAnswer: correctAnswer,
-      //     )
-      //   ]);
-      //   if (nextIsResult) {
-      //     context.push('/result');
-      //   } else {
-      //     context.push('/quiz/$nextQuestionID', extra: result);
-      //   }
-      // },
       style: ElevatedButton.styleFrom(
         fixedSize: const Size.fromWidth(140),
       ),
