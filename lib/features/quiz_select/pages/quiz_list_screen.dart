@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_quiz/core/models/question.dart';
 import 'package:my_quiz/core/models/quiz.dart';
-import 'package:my_quiz/features/question/provider/selected_quiz_provider.dart';
 import 'package:my_quiz/features/quiz_select/widgets/quiz_select_area.dart';
 import 'package:my_quiz/features/quiz_select/widgets/welcome_image.dart';
-import 'package:my_quiz/features/result/provider/quiz_result_provider.dart';
 
 enum QuizLevel { easy, normal, hard }
 
@@ -20,8 +18,6 @@ class QuizListScreenState extends ConsumerState<QuizListScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    ref.read(quizResultProvider.notifier).clear();
-    ref.read(selectedQuizProvider.notifier).clear();
   }
 
   @override
