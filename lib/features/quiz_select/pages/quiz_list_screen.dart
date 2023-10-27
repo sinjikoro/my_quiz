@@ -28,38 +28,49 @@ class QuizListScreenState extends ConsumerState<QuizListScreen> {
             );
 
     return FutureBuilder(
-        future: quizInstance.get(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              return const Center(child: CircularProgressIndicator());
-            case ConnectionState.done:
-              if (snapshot.hasError) {
-                debugPrint(snapshot.error.toString());
-                return const Center(
-                  child: Text('data load error!'),
-                );
-              }
+      future: quizInstance.get(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return loadingWidget();
+          case ConnectionState.done:
+            if (snapshot.hasError) {
+              debugPrint(snapshot.error.toString());
+              return errorWidget();
+            }
 
-              List<Quiz> quizes = [];
-              for (var e in snapshot.data!.docs) {
-                quizes.add(e.data());
-              }
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('国旗クイズ!'),
+              ),
+              body: Column(children: [
+                const WelcomeImage(),
+                for (final quiz in getList<Quiz>(snapshot.data!))
+                  QuizSelectArea(quiz),
+              ]),
+            );
+          default:
+            return loadingWidget();
+        }
+      },
+    );
+  }
 
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('国旗クイズ!'),
-                ),
-                body: Column(children: [
-                  const WelcomeImage(),
-                  for (final quiz in quizes) QuizSelectArea(quiz),
-                ]),
-              );
-            default:
-              return const Center(child: CircularProgressIndicator());
-          }
-        });
+  List<T> getList<T>(QuerySnapshot snapshot) {
+    List<T> list = [];
+    for (final e in snapshot.docs) {
+      list.add(e.data() as T);
+    }
+    return list;
+  }
+
+  Widget loadingWidget() {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  Widget errorWidget() {
+    return const Center(child: Text('loading error!'));
   }
 }
 
