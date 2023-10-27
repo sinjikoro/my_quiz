@@ -17,6 +17,8 @@ dependencies:
   flutter_svg: ^2.0.7
   riverpod_annotation: ^2.2.0
   freezed_annotation: ^2.4.1
+  firebase_core: ^2.19.0
+  cloud_firestore: ^4.12.1
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +30,7 @@ dev_dependencies:
   custom_lint: ^0.5.3
   riverpod_lint: ^2.1.1
   freezed: ^2.4.5
+  json_serializable: ^6.7.1
 
 flutter:
   uses-material-design: true

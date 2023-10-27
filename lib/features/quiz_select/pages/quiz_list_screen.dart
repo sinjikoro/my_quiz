@@ -1,11 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_quiz/core/models/question.dart';
 import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/features/quiz_select/widgets/quiz_select_area.dart';
 import 'package:my_quiz/features/quiz_select/widgets/welcome_image.dart';
-
-enum QuizLevel { easy, normal, hard }
 
 class QuizListScreen extends ConsumerStatefulWidget {
   const QuizListScreen({super.key});
@@ -22,24 +21,52 @@ class QuizListScreenState extends ConsumerState<QuizListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final quizes = _dummyQuizs;
+    final quizInstance =
+        FirebaseFirestore.instance.collection('quiz').withConverter<Quiz>(
+              fromFirestore: (snapshot, _) => Quiz.fromJson(snapshot.data()!),
+              toFirestore: (quiz, _) => quiz.toJson(),
+            );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('国旗クイズ!'),
-      ),
-      body: Column(children: [
-        const WelcomeImage(),
-        for (final quiz in quizes) QuizSelectArea(quiz),
-      ]),
-    );
+    return FutureBuilder(
+        future: quizInstance.get(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const Center(child: CircularProgressIndicator());
+            case ConnectionState.done:
+              if (snapshot.hasError) {
+                debugPrint(snapshot.error.toString());
+                return const Center(
+                  child: Text('data load error!'),
+                );
+              }
+
+              List<Quiz> quizes = [];
+              for (var e in snapshot.data!.docs) {
+                quizes.add(e.data());
+              }
+
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text('国旗クイズ!'),
+                ),
+                body: Column(children: [
+                  const WelcomeImage(),
+                  for (final quiz in quizes) QuizSelectArea(quiz),
+                ]),
+              );
+            default:
+              return const Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }
 
 List<Quiz> _dummyQuizs = [
-  Quiz(id: 1, title: '初級', description: 'かんたんだよ', questions: _dummyQuestion),
-  Quiz(id: 2, title: '中級', description: 'ふつうだよ', questions: _dummyQuestion),
-  Quiz(id: 3, title: '上級', description: 'むずかしいよ', questions: _dummyQuestion),
+  Quiz(title: '初級', description: 'かんたんだよ', questions: _dummyQuestion),
+  Quiz(title: '中級', description: 'ふつうだよ', questions: _dummyQuestion),
+  Quiz(title: '上級', description: 'むずかしいよ', questions: _dummyQuestion),
 ];
 
 List<Question> _dummyQuestion = [

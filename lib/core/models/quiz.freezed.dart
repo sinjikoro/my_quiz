@@ -14,13 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Quiz _$QuizFromJson(Map<String, dynamic> json) {
+  return _Quiz.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Quiz {
-  int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   List<Question> get questions => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $QuizCopyWith<Quiz> get copyWith => throw _privateConstructorUsedError;
 }
@@ -30,8 +34,7 @@ abstract class $QuizCopyWith<$Res> {
   factory $QuizCopyWith(Quiz value, $Res Function(Quiz) then) =
       _$QuizCopyWithImpl<$Res, Quiz>;
   @useResult
-  $Res call(
-      {int id, String title, String description, List<Question> questions});
+  $Res call({String title, String description, List<Question> questions});
 }
 
 /// @nodoc
@@ -47,16 +50,11 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? questions = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -80,8 +78,7 @@ abstract class _$$QuizImplCopyWith<$Res> implements $QuizCopyWith<$Res> {
       __$$QuizImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id, String title, String description, List<Question> questions});
+  $Res call({String title, String description, List<Question> questions});
 }
 
 /// @nodoc
@@ -94,16 +91,11 @@ class __$$QuizImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? questions = null,
   }) {
     return _then(_$QuizImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -121,17 +113,17 @@ class __$$QuizImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$QuizImpl implements _Quiz {
   const _$QuizImpl(
-      {required this.id,
-      required this.title,
+      {required this.title,
       required this.description,
       required final List<Question> questions})
       : _questions = questions;
 
-  @override
-  final int id;
+  factory _$QuizImpl.fromJson(Map<String, dynamic> json) =>
+      _$$QuizImplFromJson(json);
+
   @override
   final String title;
   @override
@@ -146,7 +138,7 @@ class _$QuizImpl implements _Quiz {
 
   @override
   String toString() {
-    return 'Quiz(id: $id, title: $title, description: $description, questions: $questions)';
+    return 'Quiz(title: $title, description: $description, questions: $questions)';
   }
 
   @override
@@ -154,7 +146,6 @@ class _$QuizImpl implements _Quiz {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$QuizImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -162,8 +153,9 @@ class _$QuizImpl implements _Quiz {
                 .equals(other._questions, _questions));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, description,
+  int get hashCode => Object.hash(runtimeType, title, description,
       const DeepCollectionEquality().hash(_questions));
 
   @JsonKey(ignore: true)
@@ -171,17 +163,23 @@ class _$QuizImpl implements _Quiz {
   @pragma('vm:prefer-inline')
   _$$QuizImplCopyWith<_$QuizImpl> get copyWith =>
       __$$QuizImplCopyWithImpl<_$QuizImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$QuizImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Quiz implements Quiz {
   const factory _Quiz(
-      {required final int id,
-      required final String title,
+      {required final String title,
       required final String description,
       required final List<Question> questions}) = _$QuizImpl;
 
-  @override
-  int get id;
+  factory _Quiz.fromJson(Map<String, dynamic> json) = _$QuizImpl.fromJson;
+
   @override
   String get title;
   @override

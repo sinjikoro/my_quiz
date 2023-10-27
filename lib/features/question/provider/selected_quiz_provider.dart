@@ -7,11 +7,10 @@ part 'selected_quiz_provider.g.dart';
 class SelectedQuiz extends _$SelectedQuiz {
   @override
   Quiz build() {
-    return const Quiz(id: -1, title: '', description: '', questions: []);
+    return const Quiz(title: '', description: '', questions: []);
   }
 
   setQuiz(Quiz quiz) => state = quiz;
 
-  clear() =>
-      state = const Quiz(id: -1, title: '', description: '', questions: []);
+  clear() => state = const Quiz(title: '', description: '', questions: []);
 }
