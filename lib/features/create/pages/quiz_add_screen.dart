@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_quiz/core/widgets/gutter.dart';
+import 'package:my_quiz/features/create/widgets/question_input_field.dart';
 import 'package:my_quiz/features/create/widgets/question_list.dart';
 
 class CreateScreen extends StatefulWidget {
@@ -14,6 +14,13 @@ class _CreateScreenState extends State<CreateScreen> {
   final descriptionController = TextEditingController();
 
   @override
+  void dispose() {
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -21,10 +28,10 @@ class _CreateScreenState extends State<CreateScreen> {
       ),
       body: Column(
         children: [
-          InputArea(
-              titleController: titleController, hintText: 'Enter a Title'),
-          InputArea(
-              titleController: descriptionController,
+          QuestionInputField(
+              controller: titleController, hintText: 'Enter a Title'),
+          QuestionInputField(
+              controller: descriptionController,
               hintText: 'Enter a Description'),
           const QuestionList(),
         ],
@@ -33,37 +40,8 @@ class _CreateScreenState extends State<CreateScreen> {
         onPressed: () {
           setState(() {});
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.check),
       ),
-    );
-  }
-}
-
-class InputArea extends StatelessWidget {
-  const InputArea({
-    super.key,
-    required this.controller,
-    this.hintText,
-  });
-
-  final TextEditingController controller;
-  final String? hintText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        horizontalMargin32,
-        Expanded(
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              hintText: hintText ?? '',
-            ),
-          ),
-        ),
-        horizontalMargin32,
-      ],
     );
   }
 }
