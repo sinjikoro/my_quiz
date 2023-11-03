@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_quiz/core/router/app_paths.dart';
 import 'package:my_quiz/features/question/provider/selected_quiz_provider.dart';
 import 'package:my_quiz/features/result/provider/quiz_result_provider.dart';
 
@@ -31,8 +33,9 @@ class ResultScreen extends ConsumerWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                ref.read(quizResultProvider.notifier).clear();
+                ref.read(selectedQuizProvider.notifier).clear();
+                context.pushReplacement(Paths.home);
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size.fromWidth(140),

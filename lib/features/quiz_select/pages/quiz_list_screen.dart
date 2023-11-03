@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/models/question.dart';
 import 'package:my_quiz/core/models/quiz.dart';
+import 'package:my_quiz/core/router/app_paths.dart';
 import 'package:my_quiz/features/quiz_select/widgets/quiz_select_area.dart';
 import 'package:my_quiz/features/quiz_select/widgets/welcome_image.dart';
 
@@ -42,13 +44,17 @@ class QuizListScreenState extends ConsumerState<QuizListScreen> {
 
             return Scaffold(
               appBar: AppBar(
-                title: const Text('国旗クイズ!'),
+                title: const Text('my quiz'),
               ),
               body: Column(children: [
                 const WelcomeImage(),
                 for (final quiz in getList<Quiz>(snapshot.data!))
                   QuizSelectArea(quiz),
               ]),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () => context.go(Paths.create),
+                child: const Icon(Icons.add),
+              ),
             );
           default:
             return loadingWidget();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/models/answer.dart';
+import 'package:my_quiz/core/router/app_paths.dart';
 import 'package:my_quiz/features/question/provider/selected_quiz_provider.dart';
 import 'package:my_quiz/features/question/widgets/answer_area.dart';
 import 'package:my_quiz/features/question/widgets/answer_button.dart';
@@ -59,7 +60,7 @@ class QuizScreenState extends ConsumerState<QuizScreen> {
                       isCorrect: selectAnswer == question.correctAnswer);
                   ref.read(quizResultProvider.notifier).addAnswer(answer);
                   if (isLastQuestion) {
-                    context.push('/result');
+                    context.go(Paths.result);
                   } else {
                     setState(() {
                       id++;
