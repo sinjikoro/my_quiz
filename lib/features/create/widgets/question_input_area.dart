@@ -36,25 +36,28 @@ class _QuestionInputAreaState extends State<QuestionInputArea> {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
+        // Question
         QuestionInputField(
           controller: questionController,
           headerText: 'question',
           hintText: 'Enter question',
         ),
+        // Answer
         for (int i = 0; i < answerControllers.length; i++)
           _AnswerField(i, answerControllers[i]),
+        // correctAnswer
         QuestionInputField(
           controller: correctController,
           headerText: 'correct ans',
           hintText: 'Enter correct answer',
         ),
         verticalMargin16,
+        // save
         ElevatedButton.icon(
           onPressed: () {
             final addQuestion = Question(
                 id: -1,
                 question: questionController.text,
-                //TODO : answersが取得できない
                 answers: answerControllers.map((e) => e.text).toList(),
                 correctAnswer: correctController.text);
             widget.onAdd(addQuestion);
@@ -79,18 +82,16 @@ class _AnswerField extends StatefulWidget {
 }
 
 class _AnswerFieldState extends State<_AnswerField> {
-  final controller = TextEditingController();
-
   @override
   void dispose() {
-    controller.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return QuestionInputField(
-      controller: controller,
+      controller: widget.controller,
       headerText: 'answer #${widget.number}',
       hintText: 'Enter answer #${widget.number}',
     );

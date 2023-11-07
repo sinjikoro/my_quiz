@@ -28,11 +28,14 @@ class _CreateScreenState extends State<CreateScreen> {
       ),
       body: Column(
         children: [
+          // title
           QuestionInputField(
               controller: titleController, hintText: 'Enter a Title'),
+          // description
           QuestionInputField(
               controller: descriptionController,
               hintText: 'Enter a Description'),
+          // question list
           const QuestionList(),
         ],
       ),
