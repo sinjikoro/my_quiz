@@ -56,7 +56,7 @@ class _QuestionInputAreaState extends State<QuestionInputArea> {
         ElevatedButton.icon(
           onPressed: () {
             final addQuestion = Question(
-                id: -1,
+                id: 1,
                 question: questionController.text,
                 answers: answerControllers.map((e) => e.text).toList(),
                 correctAnswer: correctController.text);

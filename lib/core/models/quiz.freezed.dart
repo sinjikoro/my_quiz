@@ -113,7 +113,8 @@ class __$$QuizImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$QuizImpl implements _Quiz {
   const _$QuizImpl(
       {required this.title,

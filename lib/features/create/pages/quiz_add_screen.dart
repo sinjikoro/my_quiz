@@ -61,7 +61,7 @@ class _CreateScreenState extends State<CreateScreen> {
   void _deleteQuestion(int id) {}
 
   // creatingQuizの保存
-  void _saveQuiz() {
+  void _saveQuiz() async {
     final addQuiz = creatingQuiz.copyWith(
       title: titleController.text,
       description: descriptionController.text,
@@ -72,6 +72,7 @@ class _CreateScreenState extends State<CreateScreen> {
               fromFirestore: (snapshot, _) => Quiz.fromJson(snapshot.data()!),
               toFirestore: (quiz, _) => quiz.toJson(),
             );
-    quizInstance.add(addQuiz);
+
+    await quizInstance.add(addQuiz);
   }
 }

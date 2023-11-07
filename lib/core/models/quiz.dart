@@ -6,6 +6,8 @@ part 'quiz.g.dart';
 
 @freezed
 class Quiz with _$Quiz {
+  // ignore: invalid_annotation_target
+  @JsonSerializable(explicitToJson: true)
   const factory Quiz({
     required String title,
     required String description,
