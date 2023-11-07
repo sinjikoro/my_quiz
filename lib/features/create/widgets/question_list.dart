@@ -4,7 +4,9 @@ import 'package:my_quiz/core/widgets/gutter.dart';
 import 'package:my_quiz/features/create/widgets/question_input_area.dart';
 
 class QuestionList extends StatefulWidget {
-  const QuestionList({super.key});
+  const QuestionList(this.saveQuestion, {super.key});
+
+  final Function(Question) saveQuestion;
 
   @override
   State<QuestionList> createState() => _QuestionListState();
@@ -27,31 +29,27 @@ class _QuestionListState extends State<QuestionList> {
       itemBuilder: (context, index) {
         return ListTile(
           contentPadding: allPadding32,
+          // question title
           title: Text(
               'Question ${questions[index].id} : ${questions[index].question}'),
+          // question inputArea
           subtitle: QuestionInputArea(
             question: questions[index],
             onAdd: addQuestion,
           ),
-          trailing: const IconButton(
-            icon: Icon(Icons.delete),
+          // delete button
+          trailing: IconButton(
+            icon: const Icon(Icons.delete),
             onPressed: deleteQuestion,
           ),
         );
       },
     );
   }
-}
 
-void addQuestion(Question question) {
-  //TODO : add question
-  debugPrint(question.question);
-  for (final ans in question.answers) {
-    debugPrint(ans);
+  void addQuestion(Question question) => widget.saveQuestion(question);
+
+  void deleteQuestion() {
+    //TODO : delete question
   }
-  debugPrint(question.correctAnswer);
-}
-
-void deleteQuestion() {
-  //TODO : delete question
 }

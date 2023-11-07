@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_quiz/core/models/question.dart';
+import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/features/create/widgets/question_input_field.dart';
 import 'package:my_quiz/features/create/widgets/question_list.dart';
 
@@ -12,6 +15,8 @@ class CreateScreen extends StatefulWidget {
 class _CreateScreenState extends State<CreateScreen> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+
+  Quiz creatingQuiz = const Quiz(title: '', description: '', questions: []);
 
   @override
   void dispose() {
@@ -36,15 +41,37 @@ class _CreateScreenState extends State<CreateScreen> {
               controller: descriptionController,
               hintText: 'Enter a Description'),
           // question list
-          const QuestionList(),
+          QuestionList(_saveQuestion),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {});
-        },
+        onPressed: _saveQuiz,
         child: const Icon(Icons.check),
       ),
     );
+  }
+
+  // creatingQuizにQuestionの追加・修正
+  void _saveQuestion(Question question) {
+    creatingQuiz =
+        creatingQuiz.copyWith(questions: creatingQuiz.questions + [question]);
+  }
+
+  // creatingQuizからQuestionの削除
+  void _deleteQuestion(int id) {}
+
+  // creatingQuizの保存
+  void _saveQuiz() {
+    final addQuiz = creatingQuiz.copyWith(
+      title: titleController.text,
+      description: descriptionController.text,
+    );
+
+    final quizInstance =
+        FirebaseFirestore.instance.collection('quiz').withConverter<Quiz>(
+              fromFirestore: (snapshot, _) => Quiz.fromJson(snapshot.data()!),
+              toFirestore: (quiz, _) => quiz.toJson(),
+            );
+    quizInstance.add(addQuiz);
   }
 }
