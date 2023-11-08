@@ -6,16 +6,16 @@ import 'package:my_quiz/features/create/widgets/question_input_area.dart';
 class QuestionList extends StatefulWidget {
   const QuestionList(
     this.questions, {
-    required this.addQuestion,
-    required this.editQuestion,
-    required this.deleteQuestion,
+    this.addQuestion,
+    this.editQuestion,
+    this.deleteQuestion,
     super.key,
   });
 
   final List<Question> questions;
-  final Function() addQuestion;
-  final Function(Question) editQuestion;
-  final Function(Question) deleteQuestion;
+  final Function()? addQuestion;
+  final Function(Question)? editQuestion;
+  final Function(Question)? deleteQuestion;
 
   @override
   State<QuestionList> createState() => _QuestionListState();
@@ -48,7 +48,7 @@ class _QuestionListState extends State<QuestionList> {
                   trailing: IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () =>
-                        widget.deleteQuestion(widget.questions[index]),
+                        widget.deleteQuestion?.call(widget.questions[index]),
                   ),
                 );
               },

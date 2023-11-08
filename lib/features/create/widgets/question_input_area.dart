@@ -6,14 +6,14 @@ import 'package:my_quiz/features/create/widgets/question_input_field.dart';
 class QuestionInputArea extends StatefulWidget {
   const QuestionInputArea(
     this.question, {
-    required this.editQuestion,
-    required this.deleteQuestion,
+    this.editQuestion,
+    this.deleteQuestion,
     super.key,
   });
 
   final Question question;
-  final Function(Question) editQuestion;
-  final Function(Question) deleteQuestion;
+  final Function(Question question)? editQuestion;
+  final Function(Question question)? deleteQuestion;
 
   @override
   State<QuestionInputArea> createState() => _QuestionInputAreaState();
@@ -27,7 +27,7 @@ class _QuestionInputAreaState extends State<QuestionInputArea> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < widget.question.answers.length; i++) {
       answerControllers.add(TextEditingController());
     }
   }
@@ -43,15 +43,30 @@ class _QuestionInputAreaState extends State<QuestionInputArea> {
           controller: questionController,
           headerText: 'question',
           hintText: 'Enter question',
+          lostFocusAction: (text) => widget.editQuestion?.call(
+            widget.question.copyWith(question: text),
+          ),
         ),
         // Answer
         for (int i = 0; i < answerControllers.length; i++)
-          _AnswerField(i, answerControllers[i]),
+          _AnswerField(
+            i,
+            answerControllers[i],
+            lostFocusAction: (text) => widget.editQuestion?.call(
+              widget.question.copyWith(
+                  answers: List<String>.from(widget.question.answers)
+                    ..[i] = text),
+            ),
+          ),
+
         // correctAnswer
         QuestionInputField(
           controller: correctController,
           headerText: 'correct ans',
           hintText: 'Enter correct answer',
+          lostFocusAction: (text) => widget.editQuestion?.call(
+            widget.question.copyWith(correctAnswer: text),
+          ),
         ),
         verticalMargin16,
       ],
@@ -60,10 +75,15 @@ class _QuestionInputAreaState extends State<QuestionInputArea> {
 }
 
 class _AnswerField extends StatefulWidget {
-  const _AnswerField(this.number, this.controller);
+  const _AnswerField(
+    this.number,
+    this.controller, {
+    this.lostFocusAction,
+  });
 
   final int number;
   final TextEditingController controller;
+  final Function(String text)? lostFocusAction;
 
   @override
   State<_AnswerField> createState() => _AnswerFieldState();
@@ -82,6 +102,7 @@ class _AnswerFieldState extends State<_AnswerField> {
       controller: widget.controller,
       headerText: 'answer #${widget.number}',
       hintText: 'Enter answer #${widget.number}',
+      lostFocusAction: widget.lostFocusAction,
     );
   }
 }

@@ -17,7 +17,7 @@ class _CreateScreenState extends State<CreateScreen> {
   final descriptionController = TextEditingController();
 
   final emptyQuestion = const Question(
-      id: -1, question: 'empty question', answers: [], correctAnswer: '');
+      id: -1, question: 'empty question', answers: ['', ''], correctAnswer: '');
 
   Quiz _creatingQuiz = const Quiz(title: '', description: '', questions: []);
   Quiz get creatingQuiz => _creatingQuiz;
@@ -94,7 +94,7 @@ class _CreateScreenState extends State<CreateScreen> {
       .map((index, question) => MapEntry(
           index,
           question.copyWith(
-            id: index,
+            id: index + 1,
           )))
       .values
       .toList();
