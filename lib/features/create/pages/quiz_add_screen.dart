@@ -16,13 +16,32 @@ class _CreateScreenState extends State<CreateScreen> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
-  Quiz creatingQuiz = const Quiz(title: '', description: '', questions: []);
+  final emptyQuestion = const Question(
+      id: -1, question: 'empty question', answers: [], correctAnswer: '');
+
+  Quiz _creatingQuiz = const Quiz(title: '', description: '', questions: []);
+  Quiz get creatingQuiz => _creatingQuiz;
+  set creatingQuiz(Quiz quiz) {
+    setState(() {
+      _creatingQuiz = quiz.copyWith(
+        questions: _sortQuestionIds(quiz.questions),
+      );
+    });
+  }
 
   @override
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    creatingQuiz = creatingQuiz.copyWith(
+      questions: [emptyQuestion],
+    );
   }
 
   @override
@@ -41,7 +60,12 @@ class _CreateScreenState extends State<CreateScreen> {
               controller: descriptionController,
               hintText: 'Enter a Description'),
           // question list
-          QuestionList(_saveQuestion),
+          QuestionList(
+            creatingQuiz.questions,
+            addQuestion: _addQuestion,
+            editQuestion: _editQuestion,
+            deleteQuestion: _deleteQuestion,
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -51,16 +75,30 @@ class _CreateScreenState extends State<CreateScreen> {
     );
   }
 
-  // creatingQuizにQuestionの追加・修正
-  void _saveQuestion(Question question) {
-    creatingQuiz =
-        creatingQuiz.copyWith(questions: creatingQuiz.questions + [question]);
-  }
+  void _addQuestion() => creatingQuiz = creatingQuiz.copyWith(
+      questions: creatingQuiz.questions + [emptyQuestion]);
 
-  // creatingQuizからQuestionの削除
-  void _deleteQuestion(int id) {}
+  void _editQuestion(Question question) => creatingQuiz = creatingQuiz.copyWith(
+      questions: creatingQuiz.questions
+          .map((q) => q.id == question.id ? question : q)
+          .toList());
 
-  // creatingQuizの保存
+  void _deleteQuestion(Question question) =>
+      creatingQuiz = creatingQuiz.copyWith(
+          questions: creatingQuiz.questions
+              .where((q) => q.id != question.id)
+              .toList());
+
+  List<Question> _sortQuestionIds(List<Question> questions) => questions
+      .asMap()
+      .map((index, question) => MapEntry(
+          index,
+          question.copyWith(
+            id: index,
+          )))
+      .values
+      .toList();
+
   void _saveQuiz() async {
     final addQuiz = creatingQuiz.copyWith(
       title: titleController.text,

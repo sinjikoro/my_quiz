@@ -28,6 +28,9 @@ class QuestionInputField extends StatelessWidget {
             decoration: InputDecoration(
               hintText: hintText ?? '',
             ),
+            onChanged: (value) => print('onChanged'),
+            onEditingComplete: () => print('onEditingComplete'),
+            onSubmitted: (value) => print('onSubmitted'),
           ),
         ),
         horizontalMargin32,

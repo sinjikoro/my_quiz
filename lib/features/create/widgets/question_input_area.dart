@@ -4,14 +4,16 @@ import 'package:my_quiz/core/widgets/gutter.dart';
 import 'package:my_quiz/features/create/widgets/question_input_field.dart';
 
 class QuestionInputArea extends StatefulWidget {
-  const QuestionInputArea({
+  const QuestionInputArea(
+    this.question, {
+    required this.editQuestion,
+    required this.deleteQuestion,
     super.key,
-    required this.question,
-    required this.onAdd,
   });
 
   final Question question;
-  final Function(Question) onAdd;
+  final Function(Question) editQuestion;
+  final Function(Question) deleteQuestion;
 
   @override
   State<QuestionInputArea> createState() => _QuestionInputAreaState();
@@ -52,20 +54,6 @@ class _QuestionInputAreaState extends State<QuestionInputArea> {
           hintText: 'Enter correct answer',
         ),
         verticalMargin16,
-        // save
-        ElevatedButton.icon(
-          onPressed: () {
-            final addQuestion = Question(
-                id: 1,
-                question: questionController.text,
-                answers: answerControllers.map((e) => e.text).toList(),
-                correctAnswer: correctController.text);
-            widget.onAdd(addQuestion);
-          },
-          style: ElevatedButton.styleFrom(padding: allPadding16),
-          icon: const Icon(Icons.check),
-          label: const Text('save'),
-        ),
       ],
     ));
   }
