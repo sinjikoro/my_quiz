@@ -9,39 +9,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_quiz/app.dart';
+import 'package:my_quiz/core/Provider/mock/quiz_instance_mock.dart';
+import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
+
+import 'routing/answer_quiz_test.dart';
+import 'routing/create_quiz_test.dart';
 
 void main() {
-  testWidgets('Create quiz', (tester) async {
-    await tester.pumpWidget(const ProviderScope(child: MyQuiz()));
+  late ProviderScope app;
 
-    // move create quiz page
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pumpAndSettle();
-    expect(find.text('Create Quiz'), findsOneWidget);
+  setUpAll(() async {
+    app = ProviderScope(
+      overrides: [
+        quizInstanceProvider.overrideWithValue(await quizInstanceMock()),
+      ],
+      child: const MyQuiz(),
+    );
+  });
 
-    // input quiz title
-    await tester.enterText(find.byKey(const Key('title')), 'test title');
-    await tester.pumpAndSettle();
-    expect(find.text('test title'), findsOneWidget);
+  testWidgets('routing', (tester) async {
+    await tester.pumpWidget(app);
+    await createQuizTest(tester);
 
-    // input quiz description
-    await tester.enterText(
-        find.byKey(const Key('description')), 'test description');
-    await tester.pumpAndSettle();
-    expect(find.text('test description'), findsOneWidget);
-
-    // input quiz question
-    await tester.enterText(find.byKey(const Key('question')), 'test question');
-    await tester.pumpAndSettle();
-    expect(find.text('test question'), findsOneWidget);
-
-    // input quiz answer
-    await tester.enterText(find.byKey(const Key('answer')), 'test answer');
-    await tester.pumpAndSettle();
-    expect(find.text('test answer'), findsOneWidget);
-
-    // add quiz
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pumpAndSettle();
+    // move to quiz_select_screen
+    await tester.pumpWidget(app);
+    await answerQuizTest(tester);
   });
 }
