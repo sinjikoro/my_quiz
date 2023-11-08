@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
 import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/core/router/app_paths.dart';
 import 'package:my_quiz/features/quiz_list/widgets/quiz_select_area.dart';
@@ -15,19 +16,10 @@ class QuizSelectScreen extends ConsumerStatefulWidget {
 }
 
 class QuizSelectScreenState extends ConsumerState<QuizSelectScreen> {
-  final quizInstance =
-      FirebaseFirestore.instance.collection('quiz').withConverter<Quiz>(
-            fromFirestore: (snapshot, _) => Quiz.fromJson(snapshot.data()!),
-            toFirestore: (quiz, _) => quiz.toJson(),
-          );
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final quizInstance = ref.read(quizInstanceProvider);
+
     return FutureBuilder(
       future: quizInstance.get(),
       builder: (context, snapshot) {

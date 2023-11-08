@@ -1,26 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
 import 'package:my_quiz/core/models/question.dart';
 import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/features/create/widgets/question_input_field.dart';
 import 'package:my_quiz/features/create/widgets/question_list.dart';
 
-class CreateScreen extends StatefulWidget {
+class CreateScreen extends ConsumerStatefulWidget {
   const CreateScreen({super.key});
 
   @override
-  State<CreateScreen> createState() => _CreateScreenState();
+  ConsumerState<CreateScreen> createState() => _CreateScreenState();
 }
 
-class _CreateScreenState extends State<CreateScreen> {
+class _CreateScreenState extends ConsumerState<CreateScreen> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
   final emptyQuestion = const Question(
       id: -1, question: 'empty question', answers: ['', ''], correctAnswer: '');
-
   Quiz _creatingQuiz = const Quiz(title: '', description: '', questions: []);
   Quiz get creatingQuiz => _creatingQuiz;
+
   set creatingQuiz(Quiz quiz) {
     setState(() {
       _creatingQuiz = quiz.copyWith(
@@ -105,11 +106,7 @@ class _CreateScreenState extends State<CreateScreen> {
       description: descriptionController.text,
     );
 
-    final quizInstance =
-        FirebaseFirestore.instance.collection('quiz').withConverter<Quiz>(
-              fromFirestore: (snapshot, _) => Quiz.fromJson(snapshot.data()!),
-              toFirestore: (quiz, _) => quiz.toJson(),
-            );
+    final quizInstance = ref.read(quizInstanceProvider);
 
     await quizInstance.add(addQuiz);
   }

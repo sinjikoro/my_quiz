@@ -31,6 +31,7 @@ dev_dependencies:
   riverpod_lint: ^2.1.1
   freezed: ^2.4.5
   json_serializable: ^6.7.1
+  fake_cloud_firestore: ^2.4.3
 
 flutter:
   uses-material-design: true
