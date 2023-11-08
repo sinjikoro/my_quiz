@@ -4,17 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/core/router/app_paths.dart';
-import 'package:my_quiz/features/quiz_select/widgets/quiz_select_area.dart';
-import 'package:my_quiz/features/quiz_select/widgets/welcome_image.dart';
+import 'package:my_quiz/features/quiz_list/widgets/quiz_select_area.dart';
+import 'package:my_quiz/features/quiz_list/widgets/welcome_image.dart';
 
-class QuizListScreen extends ConsumerStatefulWidget {
-  const QuizListScreen({super.key});
+class QuizSelectScreen extends ConsumerStatefulWidget {
+  const QuizSelectScreen({super.key});
 
   @override
-  QuizListScreenState createState() => QuizListScreenState();
+  QuizSelectScreenState createState() => QuizSelectScreenState();
 }
 
-class QuizListScreenState extends ConsumerState<QuizListScreen> {
+class QuizSelectScreenState extends ConsumerState<QuizSelectScreen> {
+  final quizInstance =
+      FirebaseFirestore.instance.collection('quiz').withConverter<Quiz>(
+            fromFirestore: (snapshot, _) => Quiz.fromJson(snapshot.data()!),
+            toFirestore: (quiz, _) => quiz.toJson(),
+          );
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -22,12 +28,6 @@ class QuizListScreenState extends ConsumerState<QuizListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final quizInstance =
-        FirebaseFirestore.instance.collection('quiz').withConverter<Quiz>(
-              fromFirestore: (snapshot, _) => Quiz.fromJson(snapshot.data()!),
-              toFirestore: (quiz, _) => quiz.toJson(),
-            );
-
     return FutureBuilder(
       future: quizInstance.get(),
       builder: (context, snapshot) {
@@ -46,12 +46,14 @@ class QuizListScreenState extends ConsumerState<QuizListScreen> {
                 title: const Text('my quiz'),
               ),
               body: Column(children: [
+                // TOPイメージ
                 const WelcomeImage(),
+                // quiz list
                 for (final quiz in getList<Quiz>(snapshot.data!))
                   QuizSelectArea(quiz),
               ]),
               floatingActionButton: FloatingActionButton(
-                onPressed: () => context.go(Paths.create),
+                onPressed: () => context.push(Paths.create),
                 child: const Icon(Icons.add),
               ),
             );
