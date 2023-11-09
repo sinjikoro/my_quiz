@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> RoutingTest(WidgetTester tester) async {
+Future<void> routingTest(WidgetTester tester) async {
   await tester.pumpAndSettle();
 
   // move create quiz page

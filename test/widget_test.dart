@@ -20,6 +20,6 @@ void main() {
 
   testWidgets('routing', (tester) async {
     await tester.pumpWidget(app);
-    await RoutingTest(tester);
+    await routingTest(tester);
   });
 }
