@@ -5,12 +5,15 @@ part 'selected_quiz_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class SelectedQuiz extends _$SelectedQuiz {
+  final empty = const Quiz(title: '', description: '', questions: []);
+
   @override
   Quiz build() {
-    return const Quiz(title: '', description: '', questions: []);
+    return empty;
   }
 
-  setQuiz(Quiz quiz) => state = quiz;
+  set quiz(Quiz quiz) => state = quiz;
+  Quiz get quiz => state;
 
-  clear() => state = const Quiz(title: '', description: '', questions: []);
+  void clear() => state = empty;
 }

@@ -26,6 +26,7 @@ class QuizSelectScreenState extends ConsumerState<QuizSelectScreen> {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
           case ConnectionState.waiting:
+          case ConnectionState.active:
             return loadingWidget();
           case ConnectionState.done:
             if (snapshot.hasError) {
@@ -37,27 +38,27 @@ class QuizSelectScreenState extends ConsumerState<QuizSelectScreen> {
               appBar: AppBar(
                 title: const Text('my quiz'),
               ),
-              body: Column(children: [
-                // TOPイメージ
-                const WelcomeImage(),
-                // quiz list
-                for (final quiz in getList<Quiz>(snapshot.data!))
-                  QuizSelectArea(quiz),
-              ]),
+              body: Column(
+                children: [
+                  // TOPイメージ
+                  const WelcomeImage(),
+                  // quiz list
+                  for (final quiz in getList<Quiz>(snapshot.data!))
+                    QuizSelectArea(quiz),
+                ],
+              ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () => context.push(Paths.create),
                 child: const Icon(Icons.add),
               ),
             );
-          default:
-            return loadingWidget();
         }
       },
     );
   }
 
   List<T> getList<T>(QuerySnapshot snapshot) {
-    List<T> list = [];
+    final list = <T>[];
     for (final e in snapshot.docs) {
       list.add(e.data() as T);
     }

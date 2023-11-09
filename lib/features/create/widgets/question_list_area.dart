@@ -13,9 +13,9 @@ class QuestionListArea extends StatefulWidget {
   });
 
   final List<Question> questions;
-  final Function()? addQuestion;
-  final Function(Question)? editQuestion;
-  final Function(Question)? deleteQuestion;
+  final void Function()? addQuestion;
+  final void Function(Question)? editQuestion;
+  final void Function(Question)? deleteQuestion;
 
   @override
   State<QuestionListArea> createState() => _QuestionListStateArea();
@@ -33,11 +33,14 @@ class _QuestionListStateArea extends State<QuestionListArea> {
               shrinkWrap: true,
               itemCount: widget.questions.length,
               itemBuilder: (context, index) {
+                final idText = widget.questions[index].id;
+                final questionText = widget.questions[index].question;
                 return ListTile(
                   contentPadding: allPadding32,
                   // question title
                   title: Text(
-                      'Question ${widget.questions[index].id} : ${widget.questions[index].question}'),
+                    'Question $idText : $questionText',
+                  ),
                   // question inputArea
                   subtitle: QuestionInputArea(
                     widget.questions[index],

@@ -11,8 +11,8 @@ class QuizResult extends _$QuizResult {
     return const Result(answers: []);
   }
 
-  addAnswer(Answer answer) =>
+  void addAnswer(Answer answer) =>
       state = state.copyWith(answers: [...state.answers, answer]);
 
-  clear() => state = const Result(answers: []);
+  void clear() => state = const Result(answers: []);
 }

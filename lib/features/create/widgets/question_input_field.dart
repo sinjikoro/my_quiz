@@ -11,7 +11,7 @@ class QuestionInputField extends StatefulWidget {
   });
 
   final TextEditingController controller;
-  final Function(String text)? lostFocusAction;
+  final void Function(String text)? lostFocusAction;
   final String? headerText;
   final String? hintText;
 

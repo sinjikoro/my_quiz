@@ -14,7 +14,7 @@ class QuizSelectArea extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
       onPressed: () {
-        ref.read(selectedQuizProvider.notifier).setQuiz(quiz);
+        ref.read(selectedQuizProvider.notifier).quiz = quiz;
         context.push('${Paths.quiz}/1');
       },
       style: ElevatedButton.styleFrom(

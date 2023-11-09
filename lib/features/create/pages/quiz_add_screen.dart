@@ -18,7 +18,11 @@ class _CreateScreenState extends ConsumerState<CreateScreen> {
   final descriptionController = TextEditingController();
 
   final emptyQuestion = const Question(
-      id: -1, question: 'empty question', answers: ['', ''], correctAnswer: '');
+    id: -1,
+    question: 'empty question',
+    answers: ['', ''],
+    correctAnswer: '',
+  );
   Quiz _creatingQuiz = const Quiz(title: '', description: '', questions: []);
   Quiz get creatingQuiz => _creatingQuiz;
 
@@ -55,11 +59,14 @@ class _CreateScreenState extends ConsumerState<CreateScreen> {
         children: [
           // title
           QuestionInputField(
-              controller: titleController, hintText: 'Enter a Title'),
+            controller: titleController,
+            hintText: 'Enter a Title',
+          ),
           // description
           QuestionInputField(
-              controller: descriptionController,
-              hintText: 'Enter a Description'),
+            controller: descriptionController,
+            hintText: 'Enter a Description',
+          ),
           // question list
           QuestionListArea(
             creatingQuiz.questions,
@@ -77,30 +84,35 @@ class _CreateScreenState extends ConsumerState<CreateScreen> {
   }
 
   void _addQuestion() => creatingQuiz = creatingQuiz.copyWith(
-      questions: creatingQuiz.questions + [emptyQuestion]);
+        questions: creatingQuiz.questions + [emptyQuestion],
+      );
 
   void _editQuestion(Question question) => creatingQuiz = creatingQuiz.copyWith(
-      questions: creatingQuiz.questions
-          .map((q) => q.id == question.id ? question : q)
-          .toList());
+        questions: creatingQuiz.questions
+            .map((q) => q.id == question.id ? question : q)
+            .toList(),
+      );
 
   void _deleteQuestion(Question question) =>
       creatingQuiz = creatingQuiz.copyWith(
-          questions: creatingQuiz.questions
-              .where((q) => q.id != question.id)
-              .toList());
+        questions:
+            creatingQuiz.questions.where((q) => q.id != question.id).toList(),
+      );
 
   List<Question> _sortQuestionIds(List<Question> questions) => questions
       .asMap()
-      .map((index, question) => MapEntry(
+      .map(
+        (index, question) => MapEntry(
           index,
           question.copyWith(
             id: index + 1,
-          )))
+          ),
+        ),
+      )
       .values
       .toList();
 
-  void _saveQuiz() async {
+  Future<void> _saveQuiz() async {
     final addQuiz = creatingQuiz.copyWith(
       title: titleController.text,
       description: descriptionController.text,

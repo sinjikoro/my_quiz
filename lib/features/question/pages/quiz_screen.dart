@@ -55,9 +55,10 @@ class QuizScreenState extends ConsumerState<QuizScreen> {
               AnswerButton(
                 onPressed: () {
                   final answer = Answer(
-                      answer: selectAnswer,
-                      correctAnswer: question.correctAnswer,
-                      isCorrect: selectAnswer == question.correctAnswer);
+                    answer: selectAnswer,
+                    correctAnswer: question.correctAnswer,
+                    isCorrect: selectAnswer == question.correctAnswer,
+                  );
                   ref.read(quizResultProvider.notifier).addAnswer(answer);
                   if (isLastQuestion) {
                     context.go(Paths.result);

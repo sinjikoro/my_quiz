@@ -12,7 +12,7 @@ final quizInstance =
         );
 // mock
 Future<CollectionReference<Quiz>> quizInstanceMock() async {
-  for (var quiz in _dummyQuizs) {
+  for (final quiz in _dummyQuizs) {
     await quizInstance.add(quiz);
   }
   return quizInstance;
@@ -26,23 +26,27 @@ List<Quiz> _dummyQuizs = [
 ];
 List<Question> _dummyQuestion = [
   const Question(
-      id: 1,
-      question: '一番面積の大きい国は？',
-      answers: ['中国', 'アメリカ', 'ロシア'],
-      correctAnswer: 'ロシア'),
+    id: 1,
+    question: '一番面積の大きい国は？',
+    answers: ['中国', 'アメリカ', 'ロシア'],
+    correctAnswer: 'ロシア',
+  ),
   const Question(
-      id: 2,
-      question: '一番GDPの多い国は？',
-      answers: ['アメリカ', '中国', '日本'],
-      correctAnswer: 'アメリカ'),
+    id: 2,
+    question: '一番GDPの多い国は？',
+    answers: ['アメリカ', '中国', '日本'],
+    correctAnswer: 'アメリカ',
+  ),
   const Question(
-      id: 3,
-      question: '一番人口の多い国は？',
-      answers: ['インド', 'アメリカ', '中国'],
-      correctAnswer: '中国'),
+    id: 3,
+    question: '一番人口の多い国は？',
+    answers: ['インド', 'アメリカ', '中国'],
+    correctAnswer: '中国',
+  ),
   const Question(
-      id: 4,
-      question: '一番南に位置する国は？',
-      answers: ['オーストラリア', '南極', '南アフリカ共和国'],
-      correctAnswer: '南アフリカ共和国'),
+    id: 4,
+    question: '一番南に位置する国は？',
+    answers: ['オーストラリア', '南極', '南アフリカ共和国'],
+    correctAnswer: '南アフリカ共和国',
+  ),
 ];

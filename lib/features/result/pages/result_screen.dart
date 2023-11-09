@@ -17,34 +17,35 @@ class ResultScreen extends ConsumerWidget {
 
     final totalQuestionCount = result.answers.length;
     final correctQuestionCount =
-        result.answers.where(((element) => element.isCorrect)).toList().length;
+        result.answers.where((element) => element.isCorrect).toList().length;
 
     return Scaffold(
       appBar: AppBar(
-        leading: null,
         title: Text('${quiz.title} ${quiz.description}'),
       ),
-      body: Column(children: [
-        const Text('Congratulation!'),
-        Text('正解数 $correctQuestionCount / $totalQuestionCount'),
-        for (final answer in result.answers)
-          Text('${answer.answer} ${answer.isCorrect ? '○' : '×'}'),
-        Row(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                ref.read(quizResultProvider.notifier).clear();
-                ref.read(selectedQuizProvider.notifier).clear();
-                context.pushReplacement(Paths.home);
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size.fromWidth(140),
+      body: Column(
+        children: [
+          const Text('Congratulation!'),
+          Text('正解数 $correctQuestionCount / $totalQuestionCount'),
+          for (final answer in result.answers)
+            Text('${answer.answer} ${answer.isCorrect ? '○' : '×'}'),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ref.read(quizResultProvider.notifier).clear();
+                  ref.read(selectedQuizProvider.notifier).clear();
+                  context.pushReplacement(Paths.home);
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size.fromWidth(140),
+                ),
+                child: const Text('選択画面へ'),
               ),
-              child: const Text('選択画面へ'),
-            ),
-          ],
-        ),
-      ]),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

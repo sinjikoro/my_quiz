@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/router/app_paths.dart';
-import 'package:my_quiz/features/question/pages/quiz_screen.dart';
 import 'package:my_quiz/features/create/pages/quiz_add_screen.dart';
+import 'package:my_quiz/features/question/pages/quiz_screen.dart';
 import 'package:my_quiz/features/quiz_list/pages/quiz_select_screen.dart';
 import 'package:my_quiz/features/result/pages/result_screen.dart';
 
