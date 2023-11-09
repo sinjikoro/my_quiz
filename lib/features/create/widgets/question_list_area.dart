@@ -3,8 +3,8 @@ import 'package:my_quiz/core/models/question.dart';
 import 'package:my_quiz/core/widgets/gutter.dart';
 import 'package:my_quiz/features/create/widgets/question_input_area.dart';
 
-class QuestionList extends StatefulWidget {
-  const QuestionList(
+class QuestionListArea extends StatefulWidget {
+  const QuestionListArea(
     this.questions, {
     this.addQuestion,
     this.editQuestion,
@@ -18,10 +18,10 @@ class QuestionList extends StatefulWidget {
   final Function(Question)? deleteQuestion;
 
   @override
-  State<QuestionList> createState() => _QuestionListState();
+  State<QuestionListArea> createState() => _QuestionListStateArea();
 }
 
-class _QuestionListState extends State<QuestionList> {
+class _QuestionListStateArea extends State<QuestionListArea> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -53,9 +53,10 @@ class _QuestionListState extends State<QuestionList> {
                 );
               },
             ),
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: const Icon(Icons.add),
               onPressed: widget.addQuestion,
-              child: const Text('add'),
+              label: const Text('Add Question'),
             ),
           ],
         ),

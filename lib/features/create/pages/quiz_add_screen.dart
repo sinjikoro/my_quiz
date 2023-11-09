@@ -4,7 +4,7 @@ import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
 import 'package:my_quiz/core/models/question.dart';
 import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/features/create/widgets/question_input_field.dart';
-import 'package:my_quiz/features/create/widgets/question_list.dart';
+import 'package:my_quiz/features/create/widgets/question_list_area.dart';
 
 class CreateScreen extends ConsumerStatefulWidget {
   const CreateScreen({super.key});
@@ -61,7 +61,7 @@ class _CreateScreenState extends ConsumerState<CreateScreen> {
               controller: descriptionController,
               hintText: 'Enter a Description'),
           // question list
-          QuestionList(
+          QuestionListArea(
             creatingQuiz.questions,
             addQuestion: _addQuestion,
             editQuestion: _editQuestion,
