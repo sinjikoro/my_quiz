@@ -14,11 +14,14 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'beta'
+          channel: 'stable'
           cache: true
       - name: Get dependencies
         run: flutter pub get
       - name: Build runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Get secrets
+        env: ENV_FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+        run: echo $ENV_FIREBASE_OPTIONS | base64 --decode > ./lib/firebase_options.dart
       - name: Analyze
         uses: invertase/github-action-dart-analyzer@v2.0.0
