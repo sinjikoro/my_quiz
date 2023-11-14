@@ -10,6 +10,8 @@ import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
