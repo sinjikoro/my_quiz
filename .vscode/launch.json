@@ -3,23 +3,32 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "inputs": [
+        {
+            "id": "flutterMode",
+            "type": "pickString",
+            "default": "debug",
+            "options": ["debug", "profile", "release"],
+            "description": "Select a mode to run your application in."
+        },
+        {
+            "id": "environment",
+            "type": "pickString",
+            "default": "dev",
+            "options": ["dev", "prod"],
+            "description": "Select an environment to run your application in."
+        }
+    ],
     "configurations": [
         {
-            "name": "my_quiz",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "my_quiz (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
+            "program": "lib/main_${input:environment}.dart",
             "name": "my_quiz (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "args": [
+                "--${input:flutterMode}",
+                "--dart-define ENVIRONMENT=${input:environment}"
+            ]
         }
     ]
 }
