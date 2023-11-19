@@ -2,8 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_quiz/app.dart';
-import 'package:my_quiz/core/Provider/mock/quiz_instance_mock.dart';
-import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
 
 import 'firebase_options.dart';
 
@@ -14,14 +12,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final mockValue = await quizInstanceMock();
-
   runApp(
-    ProviderScope(
-      overrides: [
-        quizInstanceProvider.overrideWithValue(mockValue),
-      ],
-      child: const MyQuiz(),
+    const ProviderScope(
+      child: MyQuiz(),
     ),
   );
 }

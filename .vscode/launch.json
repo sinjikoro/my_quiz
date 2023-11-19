@@ -15,7 +15,7 @@
             "id": "environment",
             "type": "pickString",
             "default": "dev",
-            "options": ["dev", "prod"],
+            "options": ["dev", "prod", "preview"],
             "description": "Select an environment to run your application in."
         }
     ],
