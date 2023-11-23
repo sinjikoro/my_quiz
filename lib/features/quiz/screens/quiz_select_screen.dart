@@ -5,10 +5,12 @@ import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
 import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/core/router/app_paths.dart';
+import 'package:my_quiz/features/quiz/widgets/app_title.dart';
 import 'package:my_quiz/features/quiz/widgets/error_page.dart';
 import 'package:my_quiz/features/quiz/widgets/gradient_card.dart';
 import 'package:my_quiz/features/quiz/widgets/loading_page.dart';
 import 'package:my_quiz/features/quiz/widgets/quiz_select_area.dart';
+import 'package:lottie/lottie.dart';
 
 class QuizSelectScreen extends ConsumerStatefulWidget {
   const QuizSelectScreen({super.key});
@@ -53,27 +55,10 @@ class QuizSelectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //AppBar
       appBar: AppBar(
         centerTitle: true,
-        title: RichText(
-          text: const TextSpan(
-            style: TextStyle(
-              fontFamily: 'Zen Maru Gothic',
-              fontWeight: FontWeight.w700,
-              fontSize: 24,
-              letterSpacing: 3,
-            ),
-            children: [
-              TextSpan(
-                text: 'My',
-                style: TextStyle(color: Colors.amber),
-              ),
-              TextSpan(
-                text: 'Quiz',
-              ),
-            ],
-          ),
-        ),
+        title: const AppTitle(),
         actions: [
           IconButton(
             onPressed: () => context.push(Paths.setting),
@@ -81,16 +66,31 @@ class QuizSelectPage extends StatelessWidget {
           ),
         ],
       ),
+      //Body
       body: Center(
-        child: Column(
-          children: [
-            // TOPイメージ
-            const GradientCard(
-              color: Color(0xBC39D29F),
-            ),
-            // quiz list
-            for (final quiz in getList<Quiz>(snapshot!)) QuizSelectArea(quiz),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // TOPイメージ
+              GradientCard(
+                color: const Color(0xBC39D29F),
+                child: Row(
+                  children: [
+                    Lottie.asset('assets/animation/BouncingSquare.json'),
+                    const Text(
+                      'Let\'s Play!',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // quiz list
+              for (final quiz in getList<Quiz>(snapshot!)) QuizSelectArea(quiz),
+            ],
+          ),
         ),
       ),
     );

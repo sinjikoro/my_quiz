@@ -20,9 +20,18 @@ Future<CollectionReference<Quiz>> quizInstanceMock() async {
 
 // dummy data
 List<Quiz> _dummyQuizs = [
-  Quiz(title: '初級', description: 'かんたんだよ', questions: _dummyQuestion),
-  Quiz(title: '中級', description: 'ふつうだよ', questions: _dummyQuestion),
-  Quiz(title: '上級', description: 'むずかしいよ', questions: _dummyQuestion),
+  Quiz(title: '世界地理 - 初級', description: 'かんたんだよ', questions: _dummyQuestion),
+  Quiz(title: '世界地理 - 中級', description: 'ふつうだよ', questions: _dummyQuestion),
+  Quiz(title: '世界地理 - 上級', description: 'むずかしいよ', questions: _dummyQuestion),
+  Quiz(title: '日本地理 - 初級', description: 'かんたんだよ', questions: _dummyQuestion),
+  Quiz(title: '日本地理 - 中級', description: 'ふつうだよ', questions: _dummyQuestion),
+  Quiz(title: '日本地理 - 上級', description: 'むずかしいよ', questions: _dummyQuestion),
+  Quiz(title: '算数 - 初級', description: 'かんたんだよ', questions: _dummyQuestion),
+  Quiz(title: '算数 - 中級', description: 'ふつうだよ', questions: _dummyQuestion),
+  Quiz(title: '算数 - 上級', description: 'むずかしいよ', questions: _dummyQuestion),
+  Quiz(title: '漢字 - 初級', description: 'かんたんだよ', questions: _dummyQuestion),
+  Quiz(title: '漢字 - 中級', description: 'ふつうだよ', questions: _dummyQuestion),
+  Quiz(title: '漢字 - 上級', description: 'むずかしいよ', questions: _dummyQuestion),
 ];
 List<Question> _dummyQuestion = [
   const Question(

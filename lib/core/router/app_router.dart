@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/router/app_paths.dart';
-import 'package:my_quiz/features/quiz/pages/quiz_screen.dart';
-import 'package:my_quiz/features/quiz/pages/quiz_select_screen.dart';
-import 'package:my_quiz/features/quiz/pages/result_screen.dart';
-import 'package:my_quiz/features/settings/pages/create_quiz_screen.dart';
-import 'package:my_quiz/features/settings/pages/setting_screen.dart';
+import 'package:my_quiz/features/quiz/screens/quiz_screen.dart';
+import 'package:my_quiz/features/quiz/screens/quiz_select_screen.dart';
+import 'package:my_quiz/features/quiz/screens/result_screen.dart';
+import 'package:my_quiz/features/settings/screens/create_quiz_screen.dart';
+import 'package:my_quiz/features/settings/screens/setting_screen.dart';
 
 GoRouter appRouter = GoRouter(
   initialLocation: Paths.home,
