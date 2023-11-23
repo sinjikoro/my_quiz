@@ -1,9 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/router/app_paths.dart';
-import 'package:my_quiz/features/create/pages/quiz_add_screen.dart';
-import 'package:my_quiz/features/question/pages/quiz_screen.dart';
-import 'package:my_quiz/features/quiz_list/pages/quiz_select_screen.dart';
-import 'package:my_quiz/features/result/pages/result_screen.dart';
+import 'package:my_quiz/features/quiz/pages/quiz_screen.dart';
+import 'package:my_quiz/features/quiz/pages/quiz_select_screen.dart';
+import 'package:my_quiz/features/quiz/pages/result_screen.dart';
+import 'package:my_quiz/features/settings/pages/create_quiz_screen.dart';
+import 'package:my_quiz/features/settings/pages/setting_screen.dart';
 
 GoRouter appRouter = GoRouter(
   initialLocation: Paths.home,
@@ -24,8 +25,18 @@ GoRouter appRouter = GoRouter(
       builder: (context, state) => const ResultScreen(),
     ),
     GoRoute(
-      path: Paths.create,
-      builder: (context, state) => const CreateScreen(),
+      path: Paths.createQuiz,
+      builder: (context, state) => const CreateQuizScreen(),
+    ),
+    GoRoute(
+      path: Paths.setting,
+      builder: (context, state) => const SettingQuiz(),
+      routes: [
+        GoRoute(
+          path: Paths.maintenanceQuiz,
+          builder: (context, state) => const SettingQuiz(),
+        ),
+      ],
     ),
   ],
 );

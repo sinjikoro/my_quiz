@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_quiz/core/models/question.dart';
 import 'package:my_quiz/core/widgets/gutter.dart';
-import 'package:my_quiz/features/create/widgets/question_input_field.dart';
+import 'package:my_quiz/features/settings/widgets/question_input_field.dart';
 
 class QuestionInputArea extends StatefulWidget {
   const QuestionInputArea(

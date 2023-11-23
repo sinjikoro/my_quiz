@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/models/answer.dart';
 import 'package:my_quiz/core/router/app_paths.dart';
-import 'package:my_quiz/features/question/provider/selected_quiz_provider.dart';
-import 'package:my_quiz/features/question/widgets/answer_area.dart';
-import 'package:my_quiz/features/question/widgets/answer_button.dart';
-import 'package:my_quiz/features/question/widgets/question_area.dart';
-import 'package:my_quiz/features/result/provider/quiz_result_provider.dart';
+import 'package:my_quiz/features/quiz/provider/selected_quiz_provider.dart';
+import 'package:my_quiz/features/quiz/widgets/answer_area.dart';
+import 'package:my_quiz/features/quiz/widgets/answer_button.dart';
+import 'package:my_quiz/features/quiz/widgets/question_area.dart';
+import 'package:my_quiz/features/quiz/provider/quiz_result_provider.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
   const QuizScreen({super.key, required this.id});

@@ -3,17 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
 import 'package:my_quiz/core/models/question.dart';
 import 'package:my_quiz/core/models/quiz.dart';
-import 'package:my_quiz/features/create/widgets/question_input_field.dart';
-import 'package:my_quiz/features/create/widgets/question_list_area.dart';
+import 'package:my_quiz/features/settings/widgets/question_input_field.dart';
+import 'package:my_quiz/features/settings/widgets/question_list_area.dart';
 
-class CreateScreen extends ConsumerStatefulWidget {
-  const CreateScreen({super.key});
+class CreateQuizScreen extends ConsumerStatefulWidget {
+  const CreateQuizScreen({super.key});
 
   @override
-  ConsumerState<CreateScreen> createState() => _CreateScreenState();
+  ConsumerState<CreateQuizScreen> createState() => _CreateQuizScreenState();
 }
 
-class _CreateScreenState extends ConsumerState<CreateScreen> {
+class _CreateQuizScreenState extends ConsumerState<CreateQuizScreen> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
@@ -77,7 +77,14 @@ class _CreateScreenState extends ConsumerState<CreateScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _saveQuiz,
+        onPressed: () {
+          _saveQuiz();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Saved!'),
+            ),
+          );
+        },
         child: const Icon(Icons.check),
       ),
     );
