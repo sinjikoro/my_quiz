@@ -21,10 +21,19 @@ class GradientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultWidth = MediaQuery.of(context).size.width * 0.88;
-    final defaultHeight = MediaQuery.of(context).size.height * 0.12;
+    final defaultHeight = switch (itemSize) {
+      ItemSize.small => MediaQuery.of(context).size.height * 0.12,
+      ItemSize.medium => MediaQuery.of(context).size.height * 0.15,
+      ItemSize.large => MediaQuery.of(context).size.height * 0.18,
+    };
+    final padding = switch (itemSize) {
+      ItemSize.small => allPadding8,
+      ItemSize.medium => allPadding16,
+      ItemSize.large => allPadding24,
+    };
 
     return Padding(
-      padding: verticalPadding16,
+      padding: padding,
       child: Container(
         width: width ?? defaultWidth,
         height: height ?? defaultHeight,
