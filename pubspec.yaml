@@ -38,6 +38,14 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/
+  fonts:
+    - family: Zen Maru Gothic
+      fonts:
+        - asset: assets/fonts/ZenMaruGothic-Regular.ttf
+        - asset: assets/fonts/ZenMaruGothic-Light.ttf
+          weight: 100 
+        - asset: assets/fonts/ZenMaruGothic-Bold.ttf
+          weight: 700
 
 analyzer:
   plugins:

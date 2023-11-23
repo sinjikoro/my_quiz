@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:my_quiz/core/Provider/quiz_instance_provider.dart';
 import 'package:my_quiz/core/models/quiz.dart';
 import 'package:my_quiz/core/router/app_paths.dart';
+import 'package:my_quiz/features/quiz/widgets/error_page.dart';
+import 'package:my_quiz/features/quiz/widgets/gradient_card.dart';
+import 'package:my_quiz/features/quiz/widgets/loading_page.dart';
 import 'package:my_quiz/features/quiz/widgets/quiz_select_area.dart';
-import 'package:my_quiz/features/quiz/widgets/welcome_image.dart';
 
 class QuizSelectScreen extends ConsumerStatefulWidget {
   const QuizSelectScreen({super.key});
@@ -27,35 +29,70 @@ class QuizSelectScreenState extends ConsumerState<QuizSelectScreen> {
           case ConnectionState.none:
           case ConnectionState.waiting:
           case ConnectionState.active:
-            return loadingWidget();
+            return const LoadingPage();
           case ConnectionState.done:
             if (snapshot.hasError) {
               debugPrint(snapshot.error.toString());
-              return errorWidget();
+              return const ErrorPage();
             }
 
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('my quiz'),
-                actions: [
-                  IconButton(
-                    onPressed: () => context.push(Paths.setting),
-                    icon: const Icon(Icons.settings),
-                  ),
-                ],
-              ),
-              body: Column(
-                children: [
-                  // TOPイメージ
-                  const WelcomeImage(),
-                  // quiz list
-                  for (final quiz in getList<Quiz>(snapshot.data!))
-                    QuizSelectArea(quiz),
-                ],
-              ),
+            return QuizSelectPage(
+              snapshot: snapshot.data,
             );
         }
       },
+    );
+  }
+}
+
+class QuizSelectPage extends StatelessWidget {
+  const QuizSelectPage({super.key, required this.snapshot});
+
+  final QuerySnapshot<Quiz>? snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(
+              fontFamily: 'Zen Maru Gothic',
+              fontWeight: FontWeight.w700,
+              fontSize: 24,
+              letterSpacing: 3,
+            ),
+            children: [
+              TextSpan(
+                text: 'My',
+                style: TextStyle(color: Colors.amber),
+              ),
+              TextSpan(
+                text: 'Quiz',
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () => context.push(Paths.setting),
+            icon: const Icon(Icons.settings),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            // TOPイメージ
+            const GradientCard(
+              color: Color(0xBC39D29F),
+            ),
+            // quiz list
+            for (final quiz in getList<Quiz>(snapshot!)) QuizSelectArea(quiz),
+          ],
+        ),
+      ),
     );
   }
 
@@ -65,13 +102,5 @@ class QuizSelectScreenState extends ConsumerState<QuizSelectScreen> {
       list.add(e.data() as T);
     }
     return list;
-  }
-
-  Widget loadingWidget() {
-    return const Center(child: CircularProgressIndicator());
-  }
-
-  Widget errorWidget() {
-    return const Center(child: Text('loading error!'));
   }
 }

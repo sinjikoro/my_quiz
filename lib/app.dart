@@ -12,7 +12,16 @@ class MyQuiz extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       title: 'MyQuiz',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        useMaterial3: true,
+        colorSchemeSeed: Colors.green,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.green,
+          titleTextStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
+        ),
+        fontFamily: 'Zen Maru Gothic',
       ),
       routerDelegate: appRouter.routerDelegate,
       routeInformationParser: appRouter.routeInformationParser,
