@@ -15,14 +15,25 @@ class QuizSelectArea extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {
-        ref.read(selectedQuizProvider.notifier).quiz = quiz;
-        context.push('${Paths.quiz}/1');
-      },
       child: GradientCard(
         color: const Color(0xFFEC8870),
         itemSize: ItemSize.small,
-        child: Text(quiz.title),
+        child: Column(
+          children: [
+            Text(
+              quiz.title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text(
+              quiz.description,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
+        ),
+        onTap: () {
+          ref.read(selectedQuizProvider.notifier).quiz = quiz;
+          context.push('${Paths.quiz}/1');
+        },
       ),
     );
   }

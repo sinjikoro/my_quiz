@@ -93,6 +93,7 @@ class QuizSelectPage extends StatelessWidget {
           ),
         ),
       ),
+      backgroundColor: const Color(0xBC39D29F),
     );
   }
 

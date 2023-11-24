@@ -10,6 +10,7 @@ class GradientCard extends StatelessWidget {
     this.height,
     this.child,
     this.itemSize = ItemSize.medium,
+    this.onTap,
   });
 
   final Color color;
@@ -17,6 +18,7 @@ class GradientCard extends StatelessWidget {
   final double? height;
   final Widget? child;
   final ItemSize itemSize;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +36,23 @@ class GradientCard extends StatelessWidget {
 
     return Padding(
       padding: padding,
-      child: Container(
-        width: width ?? defaultWidth,
-        height: height ?? defaultHeight,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          //グラデーション
-          gradient: LinearGradient(
-            colors: [
-              color.withOpacity(0.5),
-              color.withOpacity(0.55),
-            ],
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: width ?? defaultWidth,
+          height: height ?? defaultHeight,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            //グラデーション
+            gradient: LinearGradient(
+              colors: [
+                color.withOpacity(0.5),
+                color.withOpacity(0.55),
+              ],
+            ),
           ),
+          child: child,
         ),
-        child: child,
       ),
     );
   }
