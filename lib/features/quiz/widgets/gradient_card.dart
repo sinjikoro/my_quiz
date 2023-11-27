@@ -22,20 +22,14 @@ class GradientCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultWidth = MediaQuery.of(context).size.width * 0.88;
-    final defaultHeight = switch (itemSize) {
-      ItemSize.small => MediaQuery.of(context).size.height * 0.12,
-      ItemSize.medium => MediaQuery.of(context).size.height * 0.15,
-      ItemSize.large => MediaQuery.of(context).size.height * 0.18,
-    };
-    final padding = switch (itemSize) {
-      ItemSize.small => allPadding8,
-      ItemSize.medium => allPadding16,
-      ItemSize.large => allPadding24,
-    };
+    final (heightSizeRate, widthSizeRate, paddingSize) =
+        _getLayoutParameters(itemSize);
+
+    final defaultHeight = MediaQuery.of(context).size.height * heightSizeRate;
+    final defaultWidth = MediaQuery.of(context).size.width * widthSizeRate;
 
     return Padding(
-      padding: padding,
+      padding: paddingSize,
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -55,5 +49,18 @@ class GradientCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// レイアウトパラメータを取得する
+  (double heightSizeRate, double widthSizeRate, EdgeInsets paddingSize)
+      _getLayoutParameters(ItemSize itemSize) {
+    switch (itemSize) {
+      case ItemSize.small:
+        return (0.08, 0.88, allPadding8);
+      case ItemSize.medium:
+        return (0.15, 0.88, allPadding16);
+      case ItemSize.large:
+        return (0.24, 0.88, allPadding24);
+    }
   }
 }

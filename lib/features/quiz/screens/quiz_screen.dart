@@ -30,16 +30,29 @@ class QuizScreenState extends ConsumerState<QuizScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${quiz.title} ${quiz.description}'),
+        title: RichText(
+          text: TextSpan(
+            style: Theme.of(context).textTheme.titleLarge,
+            children: [
+              TextSpan(text: '${quiz.title} '),
+              TextSpan(
+                text: quiz.description,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+        ),
       ),
       body: Column(
         children: [
           QuestionArea(question.question),
-          Row(
-            children: [
-              for (final answer in question.answers)
-                Expanded(
-                  child: AnswerArea(
+          Expanded(
+            child: GridView.count(
+              childAspectRatio: 8 / 3,
+              crossAxisCount: 2,
+              children: [
+                for (final answer in question.answers)
+                  AnswerArea(
                     answer: answer,
                     selectAnswer: () {
                       setState(() {
@@ -47,31 +60,27 @@ class QuizScreenState extends ConsumerState<QuizScreen> {
                       });
                     },
                   ),
-                ),
-            ],
-          ),
-          Row(
-            children: [
-              AnswerButton(
-                onPressed: () {
-                  final answer = Answer(
-                    answer: selectAnswer,
-                    correctAnswer: question.correctAnswer,
-                    isCorrect: selectAnswer == question.correctAnswer,
-                  );
-                  ref.read(quizResultProvider.notifier).addAnswer(answer);
-                  if (isLastQuestion) {
-                    context.go(Paths.result);
-                  } else {
-                    setState(() {
-                      id++;
-                    });
-                  }
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ],
+      ),
+      bottomNavigationBar: AnswerButton(
+        onPressed: () {
+          final answer = Answer(
+            answer: selectAnswer,
+            correctAnswer: question.correctAnswer,
+            isCorrect: selectAnswer == question.correctAnswer,
+          );
+          ref.read(quizResultProvider.notifier).addAnswer(answer);
+          if (isLastQuestion) {
+            context.go(Paths.result);
+          } else {
+            setState(() {
+              id++;
+            });
+          }
+        },
       ),
     );
   }
